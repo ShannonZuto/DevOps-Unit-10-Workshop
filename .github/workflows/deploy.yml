@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
         # REPLACE THIS
-        DOCKERHUB_USERNAME: katiemaison
+        DOCKERHUB_USERNAME: shannon15695
         # SET THESE IN GITHUB
-        DOCKERHUB_TOKEN: '${{ secrets.DOCKERHUB_TOKEN }}'
+        DOCKERHUB_TOKEN: 'Q4LfIkhwcYKz72ezmH3lW0iPzmJuJSYJIxsE1HH3e/+ACRBMzLU8'
         AZURE_WEBHOOK: '${{ secrets.AZURE_WEBHOOK }}'
     # DECIDE WHETHER YOU WANT A BRANCH CHECK - if so remove the other "if"
     # if: github.ref == 'refs/heads/main'
@@ -20,10 +20,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
       - name: Build image
-        run: docker build --tag ${DOCKERHUB_USERNAME}/unit-10-order-processing-app --target production .
+        run: docker build --tag shannon15695.azurecr.io/${DOCKERHUB_USERNAME}/unit-10-order-processing-app --target production .
       - name: Docker login
-        run: echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin
+        run: echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USERNAME --password-stdin shannon15695.azurecr.io
       - name: Push image
-        run: docker push ${DOCKERHUB_USERNAME}/unit-10-order-processing-app
+        run: docker push shannon15695.azurecr.io/${DOCKERHUB_USERNAME}/unit-10-order-processing-app
       - name: Trigger deployment
         run: curl --fail-with-body -X POST "$AZURE_WEBHOOK"
