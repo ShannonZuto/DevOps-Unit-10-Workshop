@@ -37,6 +37,7 @@ def process_orders(app):
 
         # response.raise_for_status()
 
+
         order.set_as_processed()
         save_order(order)
 
